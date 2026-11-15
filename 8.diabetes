@@ -5,7 +5,8 @@ from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, r
 
 # Load dataset
 data = pd.read_csv("diabetes.csv")
-
+# data.head()
+# data.describe()
 # Split input and output
 X = data[['Glucose', 'BMI', 'Age', 'Insulin']]
 y = data['Outcome']
