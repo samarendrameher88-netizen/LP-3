@@ -16,3 +16,17 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
 print("Accuracy:", accuracy_score(y_test, y_pred))
+
+"Simple Explanation
+1. read_csv() – Loads the bank dataset.
+2. X – Contains customer information (input).
+3. y – Contains the result (0 = Stay, 1 = Leave).
+4. train_test_split() – Splits data into training and testing.
+5. MLPClassifier() – Creates a neural network.
+6. fit() – Trains the neural network.
+7. predict() – Predicts whether customers will leave or stay.
+8. accuracy_score() – Calculates prediction accuracy.
+Important
+- 0 = Customer will stay.
+- 1 = Customer will leave.
+- MLPClassifier is a neural network algorithm."
