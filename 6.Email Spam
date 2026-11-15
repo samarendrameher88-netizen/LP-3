@@ -1,52 +1,30 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 
-# Email dataset
-emails = [
-    "Win free money",
-    "Claim your free prize",
-    "You won a lottery",
-    "Hello how are you",
-    "Meeting tomorrow",
-    "Submit your assignment",
-    "Get free cash now",
-    "Call me later"
-]
+df = pd.read_csv(r"C:\Users\samar\OneDrive\Desktop\practical\LP3\emails.csv")
 
-# 1 = Spam, 0 = Normal
-labels = [1, 1, 1, 0, 0, 0, 1, 0]
+X = df[['the', 'to', 'win', 'offer']]   
+Y = df['Prediction']                    
 
-# Convert text into numbers
-vectorizer = TfidfVectorizer()
-X = vectorizer.fit_transform(emails)
-
-# Split dataset
-X_train, X_test, y_train, y_test = train_test_split(
-    X, labels, test_size=0.25, random_state=42
+X_train, X_test, Y_train, Y_test = train_test_split(
+    X, Y, test_size=0.25, random_state=42
 )
 
 # KNN
-knn = KNeighborsClassifier(n_neighbors=3)
-knn.fit(X_train, y_train)
+knn = KNeighborsClassifier(n_neighbors=7)
+knn.fit(X_train, Y_train)
 p1 = knn.predict(X_test)
 
+print("KNN Accuracy:", accuracy_score(Y_test, p1))
+print(classification_report(Y_test, p1))
+
 # SVM
-svm = SVC(kernel='linear')
-svm.fit(X_train, y_train)
+svm = SVC()
+svm.fit(X_train, Y_train)
 p2 = svm.predict(X_test)
 
-# Display accuracy
-print("KNN Accuracy:", accuracy_score(y_test, p1) * 100)
-print("SVM Accuracy:", accuracy_score(y_test, p2) * 100)
-
-# TF-IDF: Converts email text into numbers.
-# KNN: Classifies emails using nearest neighbors.
-# SVM: Classifies emails using a separating boundary.
-# fit(): Trains the model.
-# predict(): Predicts Spam or Normal.
-# Accuracy: Measures correct predictions.
-
-# Random state ensures reproducibility, meaning we get the same training and testing data every time we execute the program with the same settings.
+print("SVM Accuracy:", accuracy_score(Y_test, p2))
+print(classification_report(Y_test, p2))
