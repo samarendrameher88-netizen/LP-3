@@ -1,42 +1,31 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-# Load dataset
 data = pd.read_csv(r"C:\Users\samar\OneDrive\Desktop\practical\LP3\Titanic-Dataset.csv")
 
-# Select features
 X = data[['Pclass', 'Sex', 'Age', 'Fare']]
 y = data['Survived']
 
-# Convert gender into numbers
 X = pd.get_dummies(X)
-
-# Fill missing values
 X = X.fillna(X.mean())
 
-# Split dataset
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train model
 model = DecisionTreeClassifier()
 model.fit(X_train, y_train)
 
-# Predict
 y_pred = model.predict(X_test)
 
-# Accuracy
 print("Accuracy:", accuracy_score(y_test, y_pred))
 
-# Read dataset: Loads Titanic passenger data.
-# Select features: Uses passenger class, gender, age and fare.
-# get_dummies(): Converts gender into numerical values.
-# fillna(): Replaces missing values.
-# train_test_split(): Divides data into training (80%) and testing (20%).
-# DecisionTreeClassifier(): Creates the machine learning model.
-# fit(): Trains the model.
-# predict(): Predicts who survived.
-# accuracy_score(): Calculates prediction accuracy.
-# Survived = 0 → Did not survive.
-# Survived = 1 → Survived.
+# Analyze types of people who survived
+print("\nSurvival based on Gender:")
+print(data.groupby('Sex')['Survived'].mean())
+
+print("\nSurvival based on Age:")
+print(data.groupby(data['Age'] < 18)['Survived'].mean())
+
+# pd.get_dummies()	Converts categorical/text data into numerical data.
+# fillna()	Replaces missing values in a dataset.
