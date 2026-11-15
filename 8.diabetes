@@ -31,3 +31,30 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 print("Error Rate:", 1 - accuracy_score(y_test, y_pred))
 print("Precision:", precision_score(y_test, y_pred))
 print("Recall:", recall_score(y_test, y_pred))
+
+# Code	Meaning
+# read_csv()	Loads diabetes dataset
+# drop()	Separates input columns
+# train_test_split()	Divides data into 80% training and 20% testing
+# KNeighborsClassifier(5)	Creates KNN model with 5 neighbours
+# fit()	Trains the model
+# predict()	Predicts diabetes (0 or 1)
+# confusion_matrix()	Shows correct and incorrect predictions
+# accuracy_score()	Calculates accuracy
+# precision_score()	Measures correct positive predictions
+# recall_score()	Measures how many actual positive cases were detected
+
+
+# 3. Important Formulas
+# - Accuracy = Correct Predictions / Total Predictions
+# - Error Rate = 1 − Accuracy
+# - Precision = TP / (TP + FP)
+# - Recall = TP / (TP + FN)
+# 4. Understanding KNN
+# KNN stands for K-Nearest Neighbors.
+
+# It works like this:
+# 1. Takes a new patient's data.
+# 2. Finds the 5 nearest patients.
+# 3. Checks whether those patients have diabetes or not.
+# 4. Predicts the majority class.
