@@ -1,0 +1,32 @@
+n = 3
+
+profit = [60, 100, 120]
+weight = [10, 20, 30]
+
+capacity = 50
+total = 0
+
+ratio = []
+
+for i in range(n):
+    ratio.append(profit[i] / weight[i])
+
+for i in range(n):
+    for j in range(i+1, n):
+        if ratio[i] < ratio[j]:
+            ratio[i], ratio[j] = ratio[j], ratio[i]
+            profit[i], profit[j] = profit[j], profit[i]
+            weight[i], weight[j] = weight[j], weight[i]
+
+for i in range(n):
+    if weight[i] <= capacity:
+        total = total + profit[i]
+        capacity = capacity - weight[i]
+    else:
+        total = total + ratio[i] * capacity
+        break
+        
+print("Maximum Profit:", total)
+
+#Time Complexity: O(n²)
+#Space Complexity: O(n)
