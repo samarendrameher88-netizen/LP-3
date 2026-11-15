@@ -1,1 +1,31 @@
+freq = {'A': 5, 'B': 9, 'C': 12, 'D': 13, 'E': 16, 'F': 45}
 
+nodes = list(freq.items())
+
+while len(nodes) > 1:
+
+    nodes.sort(key=lambda x: x[1])
+
+    left = nodes.pop(0)
+    right = nodes.pop(0)
+
+    new_node = (left, right)
+    new_freq = left[1] + right[1]
+
+    nodes.append((new_node, new_freq))
+
+
+def huffman(node, code=""):
+
+    if isinstance(node, str):
+        print(node, ":", code)
+
+    else:
+        huffman(node[0][0], code + "0")
+        huffman(node[1][0], code + "1")
+
+
+huffman(nodes[0][0])
+
+# Time Complexity	O(n² log n)
+# Space Complexity	O(n)
