@@ -1,0 +1,59 @@
+# simple
+A = [[1, 2],
+     [3, 4]]
+
+B = [[5, 6],
+     [7, 8]]
+
+C = [[0, 0],
+     [0, 0]]
+
+for i in range(2):
+    for j in range(2):
+        for k in range(2):
+            C[i][j] = C[i][j] + A[i][k] * B[k][j]
+
+print("Result:")
+for row in C:
+    print(row)
+
+# Threaded
+import threading
+
+A = [[1, 2],
+     [3, 4]]
+
+B = [[5, 6],
+     [7, 8]]
+
+C = [[0, 0],
+     [0, 0]]
+
+def multiply(row):
+    for j in range(2):
+        for k in range(2):
+            C[row][j] = C[row][j] + A[row][k] * B[k][j]
+
+t1 = threading.Thread(target=multiply, args=(0,))
+t2 = threading.Thread(target=multiply, args=(1,))
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+
+print("Result:")
+for row in C:
+    print(row)
+
+# Normal Matrix Multiplication	O(N³)
+# Multithreaded Matrix Multiplication	O(N³) total work
+# Space Complexity	O(N²)
+
+# Normal Matrix Multiplication	            Multithreaded Matrix Multiplication
+# Uses a single main thread	                Uses multiple threads
+# Calculates rows one by one	            Assigns different rows to different threads
+# Simple                                    implementation	Requires threading library
+# No thread creation overhead	            Has thread creation overhead
+# Suitable for smaller calculations	        Can help divide work into independent tasks
